@@ -1,0 +1,35 @@
+spring:
+  application:
+    name: tyd-users-module
+  datasource:
+    username: sa
+    password: password
+    url: jdbc:h2:mem:oCabBookingDb
+    driver-class-name: org.h2.Driver
+    hikari:
+      maximum-pool-size: 5
+      pool-name: tyd-users-module-cp
+      connection-timeout: 3000
+      max-lifetime: 300000 #  Sets the maximum lifetime of a connection in the pool. An in-use connection will never retire. HikariCP removes it only when it is closed. The minimum value is 30000 ms (30 seconds). The default value is 1800000 ms (30 minutes)
+      idle-timeout: 10000 # Sets the maximum amount of time that a connection can to sit idle in the pool. This setting only applies when minimumIdle is less than maximum-pool-size. The minimum value is 10000ms (10 seconds). The default value is 600000 (10 minutes).
+      keepalive-time: 30000 # Sets how frequently HikariCP will attempt to keep a connection alive. The minimum value you can set is 30000 ms (30 seconds). However, a value in the range of minutes is most desirable. The default is 0 which disables this setting.
+      data-source-properties:
+        cachePrepStmts: true
+        prepStmtCacheSize: 250
+        prepStmtCacheSqlLimit: 2048
+        useServerPrepStmts: true
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.H2Dialect
+
+server:
+  port: 9000
+  error:
+    include-message: always
+    include-binding-errors: always
+    include-stacktrace: on_param

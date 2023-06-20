@@ -1,0 +1,6 @@
+name: TrackYourDiabetes-UserModule
+
+on:
+  push:
+    branches:
+      - develop
