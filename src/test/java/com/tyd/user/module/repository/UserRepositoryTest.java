@@ -54,6 +54,7 @@ class UserRepositoryTest {
         user.setUserFName("test");
         user.setUserLName("test");
         user.setUserMobile("1234567890");
+        user.setUserGender("M");
         user.setUserDOB(LocalDate.now());
         user.setUserAccountEnabled(true);
         user.setUserAccountNonExpired(true);

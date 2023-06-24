@@ -31,6 +31,9 @@ public class User implements Serializable {
     @Column(name = "userEmail", nullable = false, length = 45, unique = true)
     private String userEmail;
 
+    @Column(name = "userGender", nullable = false)
+    private String userGender;
+
     @Column(name = "userDOB")
     private LocalDate userDOB;
 

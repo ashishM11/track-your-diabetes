@@ -36,7 +36,7 @@ public class UserService {
 
 
     @Transactional
-    public UserResponseDTO createUser(@NonNull UserRequestDTO requestDTO) {
+    public String createUser(@NonNull UserRequestDTO requestDTO) {
         LocalDate currentDT = LocalDate.now();
         User user = UserMapper.INSTANCE.fromUserRequestDTO(requestDTO);
         user.setUserCreationDT(currentDT);
@@ -48,7 +48,7 @@ public class UserService {
         user.setUserAccountNonLocked(true);
         user.setUserCredentialsNonExpired(true);
         user.getPassword().setEncryptedPassword(passwordEncoder.encode(user.getPassword().getEncryptedPassword()));
-        return UserMapper.INSTANCE.fromUserModelToResponseDTO(userRepository.save(user));
+        return Objects.nonNull(userRepository.save(user)) ? "Thank You for Registration." : null;
     }
 
     @Transactional

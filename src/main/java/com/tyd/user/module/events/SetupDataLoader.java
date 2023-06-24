@@ -60,7 +60,7 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
         user.setUserEmail("admin@test.com");
         user.setUserMobile("1234567890");
         user.setUserRoles(Collections.singletonList(adminRole));
-
+        user.setUserGender("O");
         user.setUserCreationDT(LocalDate.now());
         user.setUserAccountEnabled(true);
         user.setUserAccountNonLocked(true);

@@ -1,6 +1,5 @@
 package com.tyd.user.module.contoller;
 
-import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.tyd.user.module.config.JwtAuthFilter;
 import com.tyd.user.module.dto.PasswordRequestDTO;
@@ -14,28 +13,24 @@ import com.tyd.user.module.model.UserRole;
 import com.tyd.user.module.model.UserRolePrivilege;
 import com.tyd.user.module.service.JwtService;
 import com.tyd.user.module.service.UserService;
-import io.micrometer.observation.Observation;
-import io.micrometer.observation.ObservationRegistry;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
-import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.actuate.observability.AutoConfigureObservability;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
 import org.springframework.boot.test.mock.mockito.MockBean;
-import org.springframework.context.annotation.Import;
 import org.springframework.http.MediaType;
-import org.springframework.security.test.context.support.WithMockUser;
 import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.MockMvc;
 
 import java.time.LocalDate;
-import java.util.*;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Set;
 
-import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
@@ -95,6 +90,7 @@ class UserControllerTest {
         user.setUserFName("test");
         user.setUserLName("test");
         user.setUserMobile("1234567890");
+        user.setUserGender("M");
         user.setUserDOB(LocalDate.now());
         user.setUserAccountEnabled(true);
         user.setUserAccountNonExpired(true);
@@ -104,7 +100,7 @@ class UserControllerTest {
         user.setPassword(password);
 
         passwordRequestDTO= new PasswordRequestDTO("test","test");
-        userRequestDTO = new UserRequestDTO("test","test","1234567890","test@gmail.com",LocalDate.now(),passwordRequestDTO);
+        userRequestDTO = new UserRequestDTO("test","test","1234567890","test@gmail.com","M",LocalDate.now(),passwordRequestDTO);
         userResponseDTO = UserMapper.INSTANCE.fromUserModelToResponseDTO(user);
         userList.add(userResponseDTO);
 
@@ -122,7 +118,7 @@ class UserControllerTest {
 
     @Test
     void registerNewUser() throws Exception {
-        when(userService.createUser(userRequestDTO)).thenReturn(userResponseDTO);
+        when(userService.createUser(userRequestDTO)).thenReturn("");
         this.mockMvc
                 .perform(post("/api/v1/user/register")
                         .contentType(MediaType.APPLICATION_JSON)

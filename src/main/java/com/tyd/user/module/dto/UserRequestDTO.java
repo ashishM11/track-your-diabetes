@@ -27,6 +27,7 @@ public record UserRequestDTO(
         @NotNull(message = "EMail Id cannot be Null.")
         @Email(message = "Email Id must be in correct format.")
         String userEmail,
+        String userGender,
         LocalDate userDOB,
         @NotNull(message = "Password & Retype password field cannot be Null.")
         PasswordRequestDTO password

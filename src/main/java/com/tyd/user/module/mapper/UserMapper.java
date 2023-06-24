@@ -13,7 +13,6 @@ import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import java.util.Collection;
-import java.util.Collections;
 import java.util.LinkedHashSet;
 import java.util.Set;
 
