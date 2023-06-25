@@ -20,7 +20,7 @@ spring:
         useServerPrepStmts: true
   jpa:
     hibernate:
-      ddl-auto: create-drop
+      ddl-auto: update
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
@@ -39,7 +39,7 @@ spring:
     activate:
       on-profile: aws
   datasource:
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    username: admin
-    password: aceEM121
-    url: jdbc:mysql://database-1.cuknd89tthim.ap-south-1.rds.amazonaws.com:3306/product_db
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: onePlus11
+    url: jdbc:postgresql://tyd-db-instance.cpai3a5patud.ap-south-1.rds.amazonaws.com:5432/track_your_diabetes
