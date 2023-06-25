@@ -1,35 +1,39 @@
 version: 0.2
 
 phases:
-  install:
-    runtime-versions:
-      java: corretto17
   pre_build:
     commands:
-      - echo In the pre_build phase..
-      - mvn clean install
+      - echo Logging in to Amazon ECR...
       - aws --version
       - $(aws ecr get-login --region $AWS_DEFAULT_REGION --no-include-email)
-      - REPOSITORY_URI= 196631319496.dkr.ecr.ap-south-1.amazonaws.com/tyd-user-module
+      - REPOSITORY_URI=196631319496.dkr.ecr.ap-south-1.amazonaws.com/tyd-user-module
       - COMMIT_HASH=$(echo $CODEBUILD_RESOLVED_SOURCE_VERSION | cut -c 1-7)
       - IMAGE_TAG=build-$(echo $CODEBUILD_BUILD_ID | awk -F":" '{print $2}')
+
+  install:
+    runtime-versions:
+      java: corretto11
+
   build:
     commands:
       - echo Build started on `date`
-      - echo building the docker image...
-      - docker build -t $REPOSITORY_URI:latest
-      - docker tag $REPOSITORY_URI:latest  $REPOSITORY_URI:$IMAGE_TAG
+      - mvn clean install
+      - echo Building the Docker image...
+      - docker build -t $REPOSITORY_URI:latest .
+      - docker tag $REPOSITORY_URI:latest $REPOSITORY_URI:$IMAGE_TAG
+
   post_build:
     commands:
-      - echo Build Completed successfully on `date`
-      - echo Pushing the docker image
+      - echo Build completed on `date`
+      - echo Pushing the Docker images...
       - docker push $REPOSITORY_URI:latest
       - docker push $REPOSITORY_URI:$IMAGE_TAG
       - echo Writing image definitions file...
-      - printf '[{ "name": "tyd-users-module","imageuri":"%s" }]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - printf '[{"name":"tyd-users-module","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       - cat imagedefinitions.json
+
+
 artifacts:
-  file:
-    - imagedefinitions.json
+  files:
     - target/tyd-users-module.jar
-  discard-paths: yes
+    - imagedefinitions.json
