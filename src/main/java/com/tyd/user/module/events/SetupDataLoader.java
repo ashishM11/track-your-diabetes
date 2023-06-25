@@ -49,6 +49,10 @@ public class SetupDataLoader implements ApplicationListener<ContextRefreshedEven
 
         UserRole adminRole = roleRepository.findByUserRoleName("ROLE_ADMIN");
 
+        if(userRepository.findAll().stream().anyMatch(user -> user.getUserRoles().contains(adminRole))){
+            return;
+        }
+
         User user = new User();
         user.setUserFName("Test");
         user.setUserLName("Test");
