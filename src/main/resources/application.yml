@@ -35,5 +35,11 @@ server:
     include-stacktrace: on_param
 ---
 spring:
-  profiles:
-    active: aws
+  config:
+    activate:
+      on-profile: aws
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    username: admin
+    password: aceEM121
+    url: jdbc:mysql://database-1.cuknd89tthim.ap-south-1.rds.amazonaws.com:3306/product_db
