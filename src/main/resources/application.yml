@@ -12,7 +12,6 @@ spring:
       connection-timeout: 3000
       max-lifetime: 300000 #  Sets the maximum lifetime of a connection in the pool. An in-use connection will never retire. HikariCP removes it only when it is closed. The minimum value is 30000 ms (30 seconds). The default value is 1800000 ms (30 minutes)
       idle-timeout: 10000 # Sets the maximum amount of time that a connection can to sit idle in the pool. This setting only applies when minimumIdle is less than maximum-pool-size. The minimum value is 10000ms (10 seconds). The default value is 600000 (10 minutes).
-      keepalive-time: 30000 # Sets how frequently HikariCP will attempt to keep a connection alive. The minimum value you can set is 30000 ms (30 seconds). However, a value in the range of minutes is most desirable. The default is 0 which disables this setting.
       data-source-properties:
         cachePrepStmts: true
         prepStmtCacheSize: 250
@@ -38,8 +37,12 @@ spring:
   config:
     activate:
       on-profile: aws
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: onePlus11
-    url: jdbc:postgresql://tyd-db-instance.cpai3a5patud.ap-south-1.rds.amazonaws.com:5432/track_your_diabetes
+  aws:
+    secretsmanager:
+      endpoint: secretsmanager.ap-south-1.amazonaws.com
+      region: ap-south-1
+
+aws:
+  secrets:
+    rds: rds!db-1ad034e6-9638-4021-b134-40ca90b72ce6
+    mailing: tyd/mail

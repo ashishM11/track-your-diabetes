@@ -1,9 +1,11 @@
 package com.tyd.user.module.contoller;
 
+import com.tyd.user.module.dto.ChangePasswordRequestDTO;
 import com.tyd.user.module.dto.UserRequestDTO;
 import com.tyd.user.module.dto.UserResponseDTO;
 import com.tyd.user.module.dto.UserSignInRequestDTO;
 import com.tyd.user.module.service.UserService;
+import jakarta.mail.MessagingException;
 import jakarta.validation.Valid;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -27,7 +29,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<String> registerNewUser(@RequestBody UserRequestDTO userRequestDTO){
+    public ResponseEntity<String> registerNewUser(@Valid @RequestBody UserRequestDTO userRequestDTO) throws MessagingException {
         return new ResponseEntity<>(userService.createUser(userRequestDTO),HttpStatus.OK);
     }
 
@@ -50,10 +52,14 @@ public class UserController {
 
     @GetMapping("/forgetPassword")
     @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
-    public ResponseEntity<Boolean> forgetPassword(@RequestParam(name = "userEmailOrMobile") String  userEmailOrMobile){
+    public ResponseEntity<Boolean> forgetPassword(@Valid @RequestParam(name = "userEmailOrMobile") String  userEmailOrMobile){
         return new ResponseEntity<>(userService.forgetPassword(userEmailOrMobile),HttpStatus.OK);
     }
 
-
+    @PostMapping("/changePassword")
+    @PreAuthorize("hasAnyRole('ROLE_ADMIN','ROLE_USER')")
+    public ResponseEntity<String> changePassword(@Valid @RequestBody ChangePasswordRequestDTO changePasswordRequestDTO){
+        return new ResponseEntity<>(userService.changePasswordRequest(changePasswordRequestDTO),HttpStatus.OK);
+    }
 
 }

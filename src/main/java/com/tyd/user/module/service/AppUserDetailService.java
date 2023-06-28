@@ -1,5 +1,6 @@
 package com.tyd.user.module.service;
 
+import com.tyd.user.module.exception.UserNotFoundException;
 import com.tyd.user.module.model.ApplicationUser;
 import com.tyd.user.module.model.User;
 import com.tyd.user.module.repository.UserRepository;
@@ -25,6 +26,6 @@ public class AppUserDetailService implements UserDetailsService {
         Optional<User> userOptional = emailOrMobile.contains("@") ? userRepository.findByUserEmail(emailOrMobile) : userRepository.findByUserMobile(emailOrMobile);
         return userOptional
                 .map(ApplicationUser::new)
-                .orElseThrow(() -> new UsernameNotFoundException("Email Or Mobile number provided not found"));
+                .orElseThrow(() -> new UserNotFoundException("Email Or Mobile number provided not found"));
     }
 }
