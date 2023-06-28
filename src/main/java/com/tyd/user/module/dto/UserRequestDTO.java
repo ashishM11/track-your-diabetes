@@ -31,8 +31,6 @@ public record UserRequestDTO(
         @NotBlank(message = "Please share your gender.")
         @NotNull(message = "Please share your gender.")
         String userGender,
-        @NotEmpty(message = "Date of Birth is required field.")
-        @NotBlank(message = "Date of Birth is required field.")
         @NotNull(message = "Date of Birth is required field.")
         LocalDate userDOB,
         @NotNull(message = "Password & Retype password field cannot be Null.")
