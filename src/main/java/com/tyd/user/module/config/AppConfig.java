@@ -1,7 +1,6 @@
 package com.tyd.user.module.config;
 
 import com.tyd.user.module.service.AppUserDetailService;
-import lombok.AllArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -14,10 +13,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
-@AllArgsConstructor
 public class AppConfig {
 
     private final AppUserDetailService appUserDetailService;
+    public AppConfig(AppUserDetailService appUserDetailService) {
+        this.appUserDetailService = appUserDetailService;
+    }
 
     @Bean
     public AuthenticationProvider authenticationProvider() {
@@ -36,5 +37,4 @@ public class AppConfig {
     public PasswordEncoder passwordEncoder() {
         return new BCryptPasswordEncoder();
     }
-
 }
