@@ -23,6 +23,11 @@ public class UserController {
 
     private final UserService userService;
 
+    @GetMapping("/health")
+    public ResponseEntity<String> checkHealth(){
+        return new ResponseEntity<>("API is working",HttpStatus.OK);
+    }
+
     @GetMapping("/find")
     public ResponseEntity<UserResponseDTO> getUserEmailOrMobile(@RequestParam(name = "userEmailOrMobile")String userEmailOrMobile){
         return new ResponseEntity<>(userService.getUserByEmailOrMobile(userEmailOrMobile), HttpStatus.OK);
