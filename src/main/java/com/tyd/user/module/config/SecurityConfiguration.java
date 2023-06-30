@@ -21,7 +21,7 @@ public class SecurityConfiguration {
 
     private final JwtAuthFilter jwtAuthFilter;
     private final AuthenticationProvider authenticationProvider;
-    private final String[] allowedUrls = {"/api/v1/user/auth", "/api/v1/user/forgetPassword", "/api/v1/user/register"};
+    private final String[] allowedUrls = {"/api/v1/user/auth", "/api/v1/user/forgetPassword","/api/v1/user/health", "/api/v1/user/register"};
 
     @Bean
     @Profile("test")
