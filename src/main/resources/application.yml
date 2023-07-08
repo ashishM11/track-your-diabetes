@@ -19,7 +19,7 @@ spring:
         useServerPrepStmts: true
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: create-drop
       naming:
         physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
     properties:
@@ -37,12 +37,8 @@ spring:
   config:
     activate:
       on-profile: aws
-  aws:
-    secretsmanager:
-      endpoint: secretsmanager.ap-south-1.amazonaws.com
-      region: ap-south-1
-
-aws:
-  secrets:
-    rds: rds!db-1ad034e6-9638-4021-b134-40ca90b72ce6
-    mailing: tyd/mail
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    username: postgres
+    password: onePlus11
+    url: jdbc:postgresql://tyd-db-instance.cpai3a5patud.ap-south-1.rds.amazonaws.com:5432/track_your_diabetes    rds: rds!db-4680ade8-b330-4815-a732-4eb84fb7bc3f
