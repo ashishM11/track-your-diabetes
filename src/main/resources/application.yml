@@ -44,5 +44,5 @@ spring:
 
 aws:
   secrets:
-    rds: rds!db-1ad034e6-9638-4021-b134-40ca90b72ce6
+    rds: rds!db-4680ade8-b330-4815-a732-4eb84fb7bc3f
     mailing: tyd/mail
