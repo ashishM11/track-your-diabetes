@@ -37,8 +37,12 @@ spring:
   config:
     activate:
       on-profile: aws
-  datasource:
-    driver-class-name: org.postgresql.Driver
-    username: postgres
-    password: onePlus11
-    url: jdbc:postgresql://tyd-db-instance.cpai3a5patud.ap-south-1.rds.amazonaws.com:5432/track_your_diabetes    rds: rds!db-4680ade8-b330-4815-a732-4eb84fb7bc3f
+  aws:
+    secretsmanager:
+      endpoint: secretsmanager.ap-south-1.amazonaws.com
+      region: ap-south-1
+
+aws:
+  secrets:
+    rds: rds!db-4680ade8-b330-4815-a732-4eb84fb7bc3f
+    mailing: tyd/mail
