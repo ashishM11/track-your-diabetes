@@ -39,7 +39,7 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
     private final AppUserDetailService appUserDetailService;
     private final AuthenticationManager authenticationManager;
-    private final MailService mailService;
+//    private final MailService mailService;
 
     @Transactional
     public String createUser(@NonNull UserRequestDTO requestDTO) throws MessagingException {
@@ -55,7 +55,7 @@ public class UserService {
         user.setUserCredentialsNonExpired(true);
         user.getPassword().setEncryptedPassword(passwordEncoder.encode(user.getPassword().getEncryptedPassword()));
         userRepository.save(user);
-        mailService.sendEmailFromTemplate("manosoft.creation@gmail.com", user.getUserEmail());
+        //mailService.sendEmailFromTemplate("manosoft.creation@gmail.com", user.getUserEmail());
         return "Thank You for Registration.";
     }
 

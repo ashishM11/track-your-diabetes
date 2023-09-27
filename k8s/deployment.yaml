@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: trackyourdiabetes
+  name: tyd-user-module-deploy
+  labels:
+    app: dev
+spec:
+  replicas: 2
+  selector:
+    matchLabels:      
+      app: dev
+  template:
+    metadata:
+      labels:
+        module: tyd-users
+        type: backend
+        app: dev
+    spec:
+      containers:
+      - name: tyd-user-module
+        image: ashisht11/tyd-user-module
+        ports:
+         - containerPort: 9000
+        env:
+        - name: SPRING_DATASOURCE_URL
+          valueFrom:
+            configMapKeyRef:
+              name: user-module-cm
+              key: SPRING_DATASOURCE_URL
+        - name: SPRING_DATASOURCE_USERNAME
+          valueFrom:
+            configMapKeyRef:
+              name: user-module-cm
+              key: SPRING_DATASOURCE_USERNAME
+        - name: SPRING_DATASOURCE_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              key: SPRING_DATASOURCE_PASSWORD
+              name: user-module-secret

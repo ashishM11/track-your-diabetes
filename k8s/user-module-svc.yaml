@@ -1,0 +1,14 @@
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: trackyourdiabetes
+  name: tyd-user-module-svc
+spec:
+  selector:
+    module: tyd-users
+    type: backend
+    app: dev
+  ports:
+  - port: 80
+    targetPort: 9000
+  
